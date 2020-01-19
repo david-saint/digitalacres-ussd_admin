@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300|Source+Sans+Pro:300&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #eeeeee;
+  background-color: #222222;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.HomeContain {
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column;
+  justify-content: flex-start;
+  -ms-align-items: center;
+  align-items: center;
+}
+
+.logo-image {
+  width: 35%;
+  margin: 50px;
+}
+
+h3 {
+  font-size: 28px;
+}
+
+h4,
+h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 300;
+  font-family: "Open Sans", sans-serif;
+}
+
+.channel-list {
+  margin: 25px;
+}
+
+.channel-list .channel-item {
+  width: 600px;
+  box-sizing: border-box;
+  padding: 15px 25px;
+  margin-bottom: 25px;
+  transition: background 0.24s ease-in;
+  border-left: 5px solid #5f9ea0;
+}
+
+.ms-Button--icon:hover i {
+  color: #47525d;
+}
+
+.flx-r {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  -o-flex-direction: row;
+  flex-direction: row;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: space-between;
+  width: 600px;
+}
+
+.channel-list .channel-item p {
+  margin: 5px;
+  font-size: 12px;
+}
+
+.channel-list .channel-item .actions {
+  width: 100%;
+  height: 30px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  -o-flex-direction: row;
+  flex-direction: row;
+  -ms-align-items: flex-end;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
