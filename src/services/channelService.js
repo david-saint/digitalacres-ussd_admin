@@ -59,3 +59,18 @@ export function deleteChannel(id) {
       .catch((err) => reject(err));
   });
 }
+
+export function structures(id, options = {}) {
+  return new Promise((resolve, reject) => {
+    // build the params object.
+    const params = {
+      page: options.page || undefined,
+      perPage: PAGINATION_PER_PAGE,
+      'with': options.with || undefined, // eslint-disable-line
+    };
+
+    axios.get(`${BASE_API}/ussd_channels/${id}/ussd_structures`, { params })
+      .then(({ data }) => resolve(data))
+      .catch((err) => reject(err));
+  });
+}

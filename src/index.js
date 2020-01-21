@@ -7,10 +7,12 @@ import App from './App';
 
 import defaultStore from './stores/defaultStore';
 import ussdChannelStore from './stores/ussdChannelStore';
+import ussdStructureStore from './stores/ussdStrctureStore';
 
 const stores = {
   defaultStore,
   ussdChannelStore,
+  ussdStructureStore,
 };
 
 // For easier debugging
@@ -23,5 +25,5 @@ ReactDOM.render(
       <App />
     </BrowserRouter>
   </Provider>,
-  document.getElementById('root'), // eslint-disable-line
+  document.getElementById('root'),
 );

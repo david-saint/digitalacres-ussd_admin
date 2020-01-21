@@ -5,7 +5,12 @@ import { DefaultButton, IconButton, Stack } from 'office-ui-fabric-react';
 const editIcon = { iconName: 'Edit' };
 const deleteIcon = { iconName: 'Delete' };
 
-const ChannelItem = ({ channel, onEditItem, onDeleteItem }) => (
+const ChannelItem = ({
+  channel,
+  onEditItem,
+  onSelectItem,
+  onDeleteItem,
+}) => (
   <div className="channel-item">
     <h4>{channel.label}</h4>
     <p>
@@ -14,7 +19,7 @@ const ChannelItem = ({ channel, onEditItem, onDeleteItem }) => (
     </p>
     <div className="actions">
       <Stack tokens={{ childrenGap: 10 }} horizontal>
-        <DefaultButton text="Select" />
+        <DefaultButton text="Select" onClick={onSelectItem} />
         <IconButton
           title="Edit"
           iconProps={editIcon}
@@ -48,6 +53,7 @@ ChannelItem.propTypes = {
     endpoint: PropTypes.string,
   }).isRequired,
   onEditItem: PropTypes.func.isRequired,
+  onSelectItem: PropTypes.func.isRequired,
   onDeleteItem: PropTypes.func.isRequired,
 };
 

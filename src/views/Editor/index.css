@@ -1,0 +1,125 @@
+.EditorContainer {
+  width: 100vw;
+  color: #333333;
+  min-height: 100vh;
+  position: relative;
+  background-color: #e5e5e5;
+}
+
+.structure-sidebar {
+  left: 0;
+  top: 40px;
+  width: 260px;
+  position: fixed;
+  background: #ffffff;
+  height: calc(100vh - 40px);
+  border-right: 1px solid #efefef;
+}
+
+.structure-sidebar .ms-DetailsHeader {
+  padding-top: 0;
+}
+
+.structure-sidebar .ms-DetailsRow-cell {
+  font-size: 12px;
+}
+
+.structure-sidebar .ms-DetailsRow-check {
+  width: 30px;
+}
+
+.structure-sidebar .cellTitle-105 {
+  justify-content: center;
+  -ms-align-items: center;
+  align-items: center;
+}
+
+.structure-sidebar span.status-cell {
+  font-size: 7px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+}
+
+.structure-sidebar .structure-actions {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.structure-sidebar span.status-cell.active {
+  color: #006400;
+}
+
+.structure-sidebar span.status-cell.inactive {
+  color: #ed143d;
+}
+
+.structure-sidebar .cellName-97 {
+  font-size: 12px;
+  color: #333333;
+}
+
+.structure-sidebar .ms-List-cell {
+  cursor: pointer;
+}
+
+.main-view {
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-view .linkBase {
+  stroke: #888888;
+}
+
+.main-view svg .nodeBase,
+.main-view svg .leafNodeBase {
+  stroke: #888888;
+  stroke-width: 1;
+}
+
+.main-view svg .nodeBase:first-of-type,
+.main-view svg .leafNodeBase:only-child {
+  fill: #c8d5e0;
+}
+
+.main-view svg .nodeBase {
+  fill: #f0f8ff;
+}
+
+.main-view svg .leafNodeBase {
+  fill: #e5e5e5;
+}
+
+.main-view svg .nodeNameBase {
+  color: #333;
+  font-size: 14px;
+}
+
+.main-view svg .nodeAttributeBase {
+  font-size: 12px;
+}
+
+.node-editor-sidebar {
+  right: 0;
+  top: 40px;
+  width: 300px;
+  position: fixed;
+  background: #ffffff;
+  height: calc(100vh - 40px);
+  border-left: 1px solid #efefef;
+}

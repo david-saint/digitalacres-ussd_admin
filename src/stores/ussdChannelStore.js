@@ -17,7 +17,11 @@ export class UssdChannelStore {
 
   @observable errorMessage = '';
 
+  @observable structuresLoading = false;
+
   @observable channelRegistry = observable.map();
+
+  @observable structures = [];
 
   @computed get channels() {
     return this.channelRegistry.values();
@@ -37,9 +41,9 @@ export class UssdChannelStore {
 
   @action makeChannelActive(id) {
     const channel = this.getChannel(id);
-    if (!channel) return Promise.reject(new Error('Channel does not exist'));
+    if (!channel) return false;
     this.activeChannel = channel;
-    return Promise.resolve(channel);
+    return channel;
   }
 
   @action loadAllChannels(withRelations = false) {
@@ -81,6 +85,23 @@ export class UssdChannelStore {
     return ChannelService.deleteChannel(id)
       .then(action(() => this.loadAllChannels()))
       .finally(action(() => { this.isLoading = false; }));
+  }
+
+  @action loadStructures(id = null, page = 1, withRelations = false, clear = false) {
+    this.structuresLoading = true;
+    return ChannelService.structures(
+      id || this.activeChannel.id,
+      { page, with: withRelations || undefined },
+    )
+      .then(action(({ data }) => {
+        if (clear) this.clearStructures();
+        this.structures = data;
+      }))
+      .finally(action(() => { this.structuresLoading = false; }));
+  }
+
+  @action clearStructures() {
+    this.structures = [];
   }
 }
 

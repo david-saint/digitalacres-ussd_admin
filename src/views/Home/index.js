@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import { PrimaryButton } from 'office-ui-fabric-react';
 
@@ -20,11 +21,6 @@ class HomePage extends Component {
       dialogTitle: '',
       dialogVisible: false,
     };
-  }
-
-  componentDidMount() {
-    const { ussdChannelStore } = this.props;
-    ussdChannelStore.loadAllChannels();
   }
 
   showDialog = () => {
@@ -49,6 +45,17 @@ class HomePage extends Component {
 
     return (
       <div className="HomeContain">
+        {
+          ussdChannelStore.activeChannel
+            && (
+              <Redirect
+                to={{
+                  pathname: '/editor',
+                  search: `?channel_id=${ussdChannelStore.activeChannel.id}`,
+                }}
+              />
+            )
+        }
         <img src={logo} className="logo-image" alt={defaultStore.appName} />
         <div className="flx-r">
           <h3>Channels</h3>
@@ -66,6 +73,7 @@ class HomePage extends Component {
                   key={key}
                   channel={value}
                   onEditItem={() => this.showEditDialog(key)}
+                  onSelectItem={() => ussdChannelStore.makeChannelActive(key)}
                   onDeleteItem={() => ussdChannelStore.deleteChannel(key)}
                 />
               ))

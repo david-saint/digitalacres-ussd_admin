@@ -6,25 +6,42 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 
 import Home from './views/Home/index';
 import Editor from './views/Editor/index';
+import Loader from './components/Loader/index';
 
 initializeIcons();
 
-@inject('defaultStore')
+@inject('defaultStore', 'ussdChannelStore')
 @withRouter
 @observer
 class App extends Component {
   componentDidMount() {
-    const { defaultStore } = this.props;
+    const { defaultStore, ussdChannelStore } = this.props;
     if (!defaultStore.appLoaded) {
-      defaultStore.setAppLoaded();
+      ussdChannelStore
+        .loadAllChannels()
+        .then(() => defaultStore.setAppLoaded());
     }
   }
+
+  renderLoader = () => (
+    <div
+      style={{
+        height: '100vh',
+        width: '100vw',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Loader />
+    </div>
+  )
 
   render() {
     const { defaultStore } = this.props;
 
     if (!defaultStore.appLoaded) {
-      return (<h1>Loading..</h1>);
+      return this.renderLoader();
     }
 
     return (
@@ -40,6 +57,9 @@ App.propTypes = {
   defaultStore: PropTypes.shape({
     appLoaded: PropTypes.bool.isRequired,
     setAppLoaded: PropTypes.func.isRequired,
+  }).isRequired,
+  ussdChannelStore: PropTypes.shape({
+    loadAllChannels: PropTypes.func.isRequired,
   }).isRequired,
 };
 
