@@ -71,7 +71,7 @@
 
 .main-view {
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 40px);
   display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flex;
@@ -117,9 +117,38 @@
 .node-editor-sidebar {
   right: 0;
   top: 40px;
-  width: 300px;
+  width: 275px;
+  padding: 15px;
   position: fixed;
   background: #ffffff;
+  box-sizing: border-box;
   height: calc(100vh - 40px);
   border-left: 1px solid #efefef;
+}
+
+.node-editor-sidebar .ms-TextField-wrapper label,
+.node-editor-sidebar .ms-TextField-wrapper input,
+.node-editor-sidebar .ms-TextField-wrapper textarea,
+.node-editor-sidebar .ms-Toggle input,
+.node-editor-sidebar .ms-Toggle label,
+.node-editor-sidebar .ms-Button,
+.node-editor-sidebar .ms-ComboBox-container label,
+.node-editor-sidebar .ms-ComboBox-container input {
+  font-size: 12px;
+}
+
+.node-editor-sidebar .ms-TextField-wrapper textarea {
+  max-height: 300px;
+}
+
+.node-editor-sidebar .actions {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: center;
+  -ms-align-items: center;
+  align-items: center;
+  margin: 15px 0 25px 0;
 }

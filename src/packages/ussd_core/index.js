@@ -55,7 +55,7 @@ export default class USSDCore {
    * @param  {Array|null}  action  [The action to be performed with the request]
    * @return {array}              [The new pipe seperated list to find the added node]
    */
-  add(parent, text, action = null, hid = null) {
+  add(parent, text, action = null, name = '', hid = null) {
     // if this is the first item they're adding
     if (this.root === null) return this._createFirstNode(text, action);
 
@@ -66,12 +66,16 @@ export default class USSDCore {
 
     // generate a unique id for the new node
     const id = uuid();
+    const path = `${parent.split('|') < 2 ? '' : `${parent}|`}${id}`;
     // create a value for it.
     const v = {
       ...this._valueTemplate,
       text,
+      name,
+      path,
       action,
       _id: hid || id,
+      attributes: { action },
     };
 
     // add it as a child of the parent node
@@ -100,6 +104,23 @@ export default class USSDCore {
   }
 
   /**
+   * Edit a node by id
+   * @param  {[type]} id      [description]
+   * @param  {Object} options [description]
+   * @return {[type]}         [description]
+   */
+  edit(id, options = {}) {
+    // if there is no item, return null
+    if (this.root === null) return null;
+
+    const node = this.find(id);
+    // if we didn't find the node return false...
+    if (node === false) return false;
+
+    return node.editValue(options);
+  }
+
+  /**
    * Recursively find an elemnt by the pipe seperated identiier
    * @param  {string} identifier [A pipe, "|", seperated list of ids]
    * @param  {Node|null} node
@@ -121,7 +142,7 @@ export default class USSDCore {
 
     // remove the first id, then join the rest
     ps.shift();
-    const newIdentifier = ps.join('');
+    const newIdentifier = ps.join('|');
 
     // recursively find the element
     return this.find(newIdentifier, currentParent);
@@ -155,6 +176,8 @@ export default class USSDCore {
       text,
       action,
       _id: '',
+      name: 'Entry Node',
+      attributes: { action },
     };
     // assign it as the root node;
     this.root = new Node(value);

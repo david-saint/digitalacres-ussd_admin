@@ -96,3 +96,15 @@ export function deleteStructure(id) {
       .catch((err) => reject(err));
   });
 }
+
+/**
+ * Get the list of actions
+ * @return {[type]} [description]
+ */
+export function actions() {
+  return new Promise((resolve, reject) => {
+    axios.get(`${BASE_API}/ussd_actions`)
+      .then(({ data }) => resolve(data))
+      .catch((err) => reject(err));
+  });
+}

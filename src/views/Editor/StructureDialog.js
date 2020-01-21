@@ -30,15 +30,20 @@ const StructureDialog = inject('ussdStructureStore')(observer((props) => {
 
   const [label, setLabel] = useState('');
 
+  const reset = () => {
+    setLabel('');
+    hideDialog();
+  };
+
   const saveOrCreate = () => {
     if (id === null) {
       return ussdStructureStore
         .createStructure({ label })
-        .then(() => hideDialog());
+        .then(() => reset());
     }
     return ussdStructureStore
       .updateStructure({ label }, id)
-      .then(() => hideDialog());
+      .then(() => reset());
   };
 
   return (

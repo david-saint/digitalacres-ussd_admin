@@ -6,6 +6,7 @@ import MainView from './MainView';
 import NodeEditor from './NodeEditor';
 import useQuery from '../../hooks/useQuery';
 import StructureDialog from './StructureDialog';
+import NodeContext from './contexts/NodeContext';
 import StructureSidebar from './StructureSidebar';
 import DialogContext from './contexts/DialogContext';
 import EditorHeader from '../../components/EditorHeader/index';
@@ -20,6 +21,7 @@ const EditorPage = inject('ussdChannelStore')(observer((props) => {
   const query = useQuery();
   const channelId = parseInt(query.get('channel_id'), 10);
 
+  const [tree, setTree] = useState({ collapsible: false });
   const [dialog, setDialog] = useState({ id: null, visible: false, title: '' });
 
   if (!ussdChannelStore.activeChannel && !channelId) {
@@ -39,8 +41,12 @@ const EditorPage = inject('ussdChannelStore')(observer((props) => {
         <EditorHeader />
         <div>
           <StructureSidebar />
-          <MainView />
-          <NodeEditor />
+          <NodeContext.Provider value={[tree, setTree]}>
+            <MainView />
+            <div className="node-editor-sidebar">
+              <NodeEditor />
+            </div>
+          </NodeContext.Provider>
         </div>
       </DialogContext.Provider>
       <StructureDialog

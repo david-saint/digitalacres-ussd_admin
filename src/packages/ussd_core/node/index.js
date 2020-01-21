@@ -44,6 +44,19 @@ export default class Node {
   }
 
   /**
+   * Edit the value of the node
+   * @param  {Object} options [description]
+   * @return {[type]}         [description]
+   */
+  editValue(options = {}) {
+    this.value = {
+      ...this.value,
+      ...options,
+    };
+    return this.value;
+  }
+
+  /**
    * Method to get a child by an index
    * @param  {[type]} index [description]
    * @return {[type]}       [description]
@@ -71,5 +84,17 @@ export default class Node {
     const prepend = this.hasChildren() ? 'CON' : 'END';
 
     return `${prepend} ${this.value.text}`;
+  }
+
+  /**
+   * Convert to object format
+   * @return {[type]} [description]
+   */
+  toObject() {
+    const children = Object.values(this.children).map((c) => c.toObject());
+    return {
+      ...this.value,
+      children,
+    };
   }
 }

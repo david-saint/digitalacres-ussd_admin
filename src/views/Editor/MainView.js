@@ -3,7 +3,7 @@ import T from 'prop-types';
 import Tree from 'react-d3-tree';
 import { inject, observer } from 'mobx-react';
 
-import sampleData from './sampleData';
+import NodeContext from './contexts/NodeContext';
 
 @inject('ussdStructureStore')
 @observer
@@ -23,6 +23,11 @@ class MainView extends Component {
     });
   }
 
+  onNodeClick = (node) => {
+    const { ussdStructureStore } = this.props;
+    ussdStructureStore.ussdCore.makeNodeActive(node.path);
+  }
+
   render() {
     const { translate } = this.state;
     const { ussdStructureStore } = this.props;
@@ -30,22 +35,28 @@ class MainView extends Component {
     return (
       <div className="main-view" ref={(tc) => { this.treeContainer = tc; }}>
         {
-          ussdStructureStore.structure
+          ussdStructureStore.structure && !ussdStructureStore.isLoading
             ? (
-              <Tree
-                zoom={0.7}
-                data={sampleData}
-                translate={translate}
-                orientation="vertical"
-                separation={{
-                  siblings: 2,
-                  nonSiblings: 2,
-                }}
-                nodeSvgShape={{
-                  shape: 'circle',
-                  shapeProps: { r: 25 },
-                }}
-              />
+              <NodeContext.Consumer>
+                {([tree]) => (
+                  <Tree
+                    zoom={0.8}
+                    data={ussdStructureStore.ussdCore.core}
+                    translate={translate}
+                    orientation="vertical"
+                    onClick={this.onNodeClick}
+                    collapsible={tree.collapsible}
+                    separation={{
+                      siblings: 2,
+                      nonSiblings: 2,
+                    }}
+                    nodeSvgShape={{
+                      shape: 'circle',
+                      shapeProps: { r: 25 },
+                    }}
+                  />
+                )}
+              </NodeContext.Consumer>
             )
             : (<h4 style={{ color: '#333333' }}>...</h4>)
         }
