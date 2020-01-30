@@ -53,6 +53,9 @@ export default class Node {
       ...this.value,
       ...options,
     };
+    if (typeof options.action !== 'undefined') {
+      this.value.attributes.action = options.action;
+    }
     return this.value;
   }
 
